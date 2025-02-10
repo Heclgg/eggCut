@@ -1,2 +1,0 @@
-ninja: Entering directory `D:\Code\eggCut\OpenCV\.cxx\Debug\1m4l4t3o\x86_64'
-ninja: no work to do.

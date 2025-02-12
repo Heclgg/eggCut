@@ -1,8 +1,7 @@
 <resources>
-    <string name="app_name">eggCut</string>
+    <string name="app_name" translatable="false">eggCut</string>
 
     <string name="welcome_title" translatable="true">Welcome to eggCut</string>
     <string name="click_picture" translatable="true">Click to import picture</string>
-
     <string name="pic_description" translatable="true">Your import picture</string>
 </resources>

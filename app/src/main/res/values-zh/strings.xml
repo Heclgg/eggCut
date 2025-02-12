@@ -1,0 +1,5 @@
+<resources>
+    <string name="welcome_title" translatable="true">欢迎使用 EggCut</string>
+    <string name="click_picture" translatable="true">点击导入图片</string>
+    <string name="pic_description" translatable="true">您导入的图片</string>
+</resources>

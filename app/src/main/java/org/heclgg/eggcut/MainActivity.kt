@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
                 openGallery()
             } else {
                 Log.d("hcllog", "init fail")
-                Toast.makeText(baseContext, "初始化 OpenCV 失败", Toast.LENGTH_SHORT).show()
+                Toast.makeText(baseContext, "OpenCV initialization failed", Toast.LENGTH_SHORT).show()
             }
         }
     }

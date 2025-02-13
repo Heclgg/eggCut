@@ -39,18 +39,40 @@
             app:backgroundTint="@null" />
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/img_view"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/img_column"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:contentDescription="@string/pic_description"
-        android:paddingStart="12dp"
-        android:paddingEnd="12dp"
-        android:scaleType="centerInside"
+        android:gravity="center"
+        android:orientation="vertical"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/img_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/pic_description"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:scaleType="centerInside" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="24dp" />
+
+        <Button
+            android:id="@+id/button_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/main_button_shape"
+            android:text="@string/click_back"
+            app:backgroundTint="@null" />
+
+    </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

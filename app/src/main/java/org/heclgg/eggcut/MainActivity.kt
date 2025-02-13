@@ -24,8 +24,10 @@ import org.opencv.android.OpenCVLoader
  * @since 2025/02/10
  */
 class MainActivity : AppCompatActivity() {
-    private val button by bindView<Button>(R.id.button_main)
     private val mainColumn by bindView<LinearLayout>(R.id.main_column)
+    private val imgColumn by bindView<LinearLayout>(R.id.img_column)
+    private val importButton by bindView<Button>(R.id.button_main)
+    private val backButton by bindView<Button>(R.id.button_img)
     private val imgView by bindView<ImageView>(R.id.img_view)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,14 +40,20 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        button.setOnClickListener {
+        importButton.setOnClickListener {
             if (OpenCVLoader.initLocal()) {
                 Log.d("hcllog", "init succeed")
                 openGallery()
             } else {
                 Log.d("hcllog", "init fail")
-                Toast.makeText(baseContext, "OpenCV initialization failed", Toast.LENGTH_SHORT).show()
+                Toast.makeText(baseContext, "OpenCV initialization failed", Toast.LENGTH_SHORT)
+                    .show()
             }
+        }
+
+        backButton.setOnClickListener {
+            imgColumn.visibility = View.GONE
+            mainColumn.visibility = View.VISIBLE
         }
     }
 
@@ -66,7 +74,7 @@ class MainActivity : AppCompatActivity() {
     private fun handleImage(uri: Uri) {
         mainColumn.visibility = View.GONE
 //        imgView.setImageURI(uri)
-        imgView.visibility = View.VISIBLE
+        imgColumn.visibility = View.VISIBLE
 
         val bitmap = uriToBitmap(uri)?.let { OpenCVDetect.detectRectangles(it) }
         imgView.setImageBitmap(bitmap)

@@ -4,4 +4,5 @@
     <string name="welcome_title" translatable="true">Welcome to eggCut</string>
     <string name="click_picture" translatable="true">Click to import picture</string>
     <string name="pic_description" translatable="true">Your import picture</string>
+    <string name="click_back" translatable="true">Go back</string>
 </resources>

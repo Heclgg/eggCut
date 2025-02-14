@@ -18,73 +18,56 @@ import org.opencv.imgproc.Imgproc
 object OpenCVDetect {
     private const val TAG = "OpenCVDetect"
 
-    fun detectRectangles(inputBitmap: Bitmap): Bitmap {
-        // Convert Bitmap to OpenCV Mat format
+    fun detectRectangles(bitmap: Bitmap): Bitmap {
+        // 1. 将 Bitmap 转换为 OpenCV 的 Mat
         val srcMat = Mat()
-        Utils.bitmapToMat(inputBitmap, srcMat)
+        Utils.bitmapToMat(bitmap, srcMat)
 
-        // 1. Convert to grayscale
-        val gray = Mat()
-        Imgproc.cvtColor(srcMat, gray, Imgproc.COLOR_BGR2GRAY)
+        // 2. 图像预处理
+        val grayMat = Mat()
+        val blurMat = Mat()
+        val edgesMat = Mat()
 
-        // 2. Gaussian blur to reduce noise
-        Imgproc.GaussianBlur(gray, gray, Size(5.0, 5.0), 0.0)
+        // 转为灰度图
+        Imgproc.cvtColor(srcMat, grayMat, Imgproc.COLOR_RGB2GRAY)
+        // 高斯模糊降噪
+        Imgproc.GaussianBlur(grayMat, blurMat, Size(5.0, 5.0), 0.0)
+        // Canny 边缘检测
+        Imgproc.Canny(blurMat, edgesMat, 80.0, 250.0)
 
-        // 3. Canny edge detection
-        val edges = Mat()
-        Imgproc.Canny(gray, edges, 50.0, 150.0)
-
-        // 4. Find contours
+        // 3. 查找轮廓
         val contours = mutableListOf<MatOfPoint>()
         val hierarchy = Mat()
-        Imgproc.findContours(
-            edges,
-            contours,
-            hierarchy,
-            Imgproc.RETR_LIST,
-            Imgproc.CHAIN_APPROX_SIMPLE
-        )
+        Imgproc.findContours(edgesMat, contours, hierarchy, Imgproc.RETR_LIST, Imgproc.CHAIN_APPROX_SIMPLE)
 
-        // 5. Filter rectangle contours
-        val rectContours = mutableListOf<MatOfPoint>()
+        // 4. 筛选矩形轮廓
         for (contour in contours) {
-            val approx = MatOfPoint2f()
+            val approxCurve = MatOfPoint2f()
             val contour2f = MatOfPoint2f(*contour.toArray())
 
-            // Polygon approximation (epsilon as 2% of the perimeter)
+            // 多边形逼近
             val epsilon = 0.02 * Imgproc.arcLength(contour2f, true)
-            Imgproc.approxPolyDP(contour2f, approx, epsilon, true)
+            Imgproc.approxPolyDP(contour2f, approxCurve, epsilon, true)
 
-            // Filter quadrilaterals
-            if (approx.toArray().size == 4) {
-                // Calculate contour area (exclude too small areas)
-                val area = Imgproc.contourArea(approx)
-                if (area > 1000) {
-                    // Check if convex quadrilateral
-                    if (Imgproc.isContourConvex(MatOfPoint(*approx.toArray()))) {
-                        rectContours.add(MatOfPoint(*approx.toArray()))
+            // 判断是否为矩形（4个顶点）
+            if (approxCurve.toArray().size == 4) {
+                // 进一步筛选：计算面积和宽高比
+                val area = Imgproc.contourArea(contour)
+                if (area > 1000) { // 过滤小面积噪声
+                    val rect = Imgproc.boundingRect(contour)
+                    val aspectRatio = rect.width.toFloat() / rect.height
+                    if (aspectRatio in 0.8..1.2) { // 近似正方形的矩形
+                        // 标记矩形
+                        Imgproc.drawContours(srcMat, listOf(contour), -1, Scalar(0.0, 255.0, 0.0), 3)
                     }
                 }
             }
         }
 
-        // 6. Draw detection results on the original image
-        val color = Scalar(0.0, 255.0, 0.0) // Green
-        for (rect in rectContours) {
-            Imgproc.drawContours(srcMat, listOf(rect), -1, color, 3)
-        }
+        // 5. 将结果 Mat 转换回 Bitmap
+        val resultBitmap = Bitmap.createBitmap(srcMat.cols(), srcMat.rows(), Bitmap.Config.ARGB_8888)
+        Utils.matToBitmap(srcMat, resultBitmap)
 
-        // Convert back to Bitmap
-        val outputBitmap =
-            Bitmap.createBitmap(srcMat.cols(), srcMat.rows(), Bitmap.Config.ARGB_8888)
-        Utils.matToBitmap(srcMat, outputBitmap)
-
-        // Release memory
-        srcMat.release()
-        gray.release()
-        edges.release()
-        hierarchy.release()
-
-        return outputBitmap
+        return resultBitmap
     }
 }

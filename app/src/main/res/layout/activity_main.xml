@@ -36,13 +36,14 @@
             android:layout_height="wrap_content"
             android:background="@drawable/main_button_shape"
             android:text="@string/click_picture"
+            android:textSize="16sp"
             app:backgroundTint="@null" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/img_column"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical"
         android:visibility="gone"
@@ -53,8 +54,9 @@
 
         <ImageView
             android:id="@+id/img_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:contentDescription="@string/pic_description"
             android:paddingStart="12dp"
             android:paddingEnd="12dp"
@@ -70,9 +72,8 @@
             android:layout_height="wrap_content"
             android:background="@drawable/main_button_shape"
             android:text="@string/click_back"
+            android:textSize="16sp"
             app:backgroundTint="@null" />
-
     </LinearLayout>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

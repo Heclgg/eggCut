@@ -3,4 +3,7 @@
     <string name="click_picture" translatable="true">点击导入图片</string>
     <string name="pic_description" translatable="true">您导入的图片</string>
     <string name="click_back" translatable="true">返回</string>
+    <string name="click_save" translatable="true">保存</string>
+    <string name="init_fail" translatable="true">OpenCV 初始化失败</string>
+    <string name="save_info_succeed" translatable="true">图片已保存到相册</string>
 </resources>

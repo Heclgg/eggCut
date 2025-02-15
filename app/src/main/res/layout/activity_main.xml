@@ -46,11 +46,7 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:visibility="gone">
 
         <ImageView
             android:id="@+id/img_view"
@@ -60,20 +56,45 @@
             android:contentDescription="@string/pic_description"
             android:paddingStart="12dp"
             android:paddingEnd="12dp"
-            android:scaleType="centerInside" />
+            android:scaleType="fitCenter" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="24dp" />
 
-        <Button
-            android:id="@+id/button_img"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/button_column"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/main_button_shape"
-            android:text="@string/click_back"
-            android:textSize="16sp"
-            app:backgroundTint="@null" />
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <Button
+                android:id="@+id/back_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/main_button_shape"
+                android:text="@string/click_back"
+                android:textSize="16sp"
+                app:backgroundTint="@null" />
+
+            <View
+                android:layout_width="24dp"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/save_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/main_button_shape"
+                android:text="@string/click_save"
+                android:textSize="16sp"
+                app:backgroundTint="@null" />
+        </LinearLayout>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

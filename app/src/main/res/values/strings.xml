@@ -5,4 +5,7 @@
     <string name="click_picture" translatable="true">Click to import picture</string>
     <string name="pic_description" translatable="true">Your import picture</string>
     <string name="click_back" translatable="true">Go back</string>
+    <string name="click_save" translatable="true">Save</string>
+    <string name="init_fail" translatable="true">OpenCV initialization failed</string>
+    <string name="save_info_succeed" translatable="true">Images saved to album</string>
 </resources>

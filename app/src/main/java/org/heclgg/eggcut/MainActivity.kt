@@ -105,7 +105,7 @@ class MainActivity : AppCompatActivity() {
             try {
                 val resolver = activity.contentResolver
                 val timeStamp =
-                    SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
+                    SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.getDefault()).format(Date())
                 val fileName = "EGG_CUT_${timeStamp}.jpg"
 
                 // 保存到 MediaStore（兼容 Android 10+ 的作用域存储）
@@ -113,7 +113,7 @@ class MainActivity : AppCompatActivity() {
                     put(MediaStore.MediaColumns.DISPLAY_NAME, fileName)
                     put(MediaStore.MediaColumns.MIME_TYPE, "image/jpeg")
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                        put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_PICTURES)
+                        put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DCIM)
                     }
                 }
 
@@ -123,6 +123,7 @@ class MainActivity : AppCompatActivity() {
                 uri?.let {
                     val outputStream: OutputStream? = resolver.openOutputStream(it)
                     outputStream?.use { stream ->
+                        // TODO 图像质量可配置；格式可选择
                         bitmap?.compress(Bitmap.CompressFormat.JPEG, 100, stream)
                     }
                 }

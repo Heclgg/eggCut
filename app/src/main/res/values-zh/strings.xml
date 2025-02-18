@@ -1,7 +1,7 @@
 <resources>
     <string name="welcome_title" translatable="true">欢迎使用 EggCut</string>
     <string name="click_picture" translatable="true">点击导入图片</string>
-    <string name="pic_description" translatable="true">您导入的图片</string>
+    <string name="pic_description" translatable="true">截取的图片</string>
     <string name="click_back" translatable="true">返回</string>
     <string name="click_save" translatable="true">保存</string>
     <string name="init_fail" translatable="true">OpenCV 初始化失败</string>
